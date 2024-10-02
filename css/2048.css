@@ -1,0 +1,139 @@
+:root {
+    --main-bg-color: #ffebcc; /* 浅桃色背景 */
+    --button-bg-color: #ffcc66; /* 按钮的亮黄色 */
+    --button-hover-bg-color: #ffb84d; /* 悬停时稍微深一些的黄色 */
+    --cell-bg-color: #ffd1a4; /* 柔和的橙色单元格 */
+    --text-color: #333333; /* 具有对比度的深色文本 */
+}
+
+header {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+header h2 {
+    font-family: 'Comic Sans MS', cursive, sans-serif; /* 有趣的字体 */
+    font-size: 2.5rem; /* 更大尺寸以强调 */
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #ff3366; /* 标题的亮色 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* 柔和的阴影 */
+}
+
+header #newgamebutton {
+    display: block;
+    margin: 0.5rem auto;
+    width: 100px; /* 略大按钮 */
+    padding: 0.5rem;
+    background-color: var(--button-bg-color);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: var(--text-color);
+    border-radius: 20px; /* 更圆的角 */
+    text-decoration: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* 增加深度的阴影 */
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+header #newgamebutton:hover {
+    background-color: var(--button-hover-bg-color);
+    transform: scale(1.1);
+}
+
+header p {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 1.5rem; /* 更大以便可见 */
+    margin: 0.5rem auto;
+    color: #ff3366; /* 与标题颜色匹配 */
+}
+
+#grid-container {
+    width: 480px; /* 略宽一些 */
+    height: 480px;
+    padding: 20px;
+    margin: 5px auto;
+    border-radius: 20px; /* 更圆的角 */
+    background-color: var(--main-bg-color);
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.grid-cell {
+    width: 100px;
+    height: 100px;
+    border-radius: 12px; /* 圆角 */
+    background-color: var(--cell-bg-color);
+    position: absolute;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.grid-cell:hover {
+    background-color: #ffb3a0; /* 悬停时稍微深一点 */
+    transform: translateY(-5px); /* 提升效果 */
+}
+
+.number-cell {
+    border-radius: 12px; /* 圆角 */
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-weight: bold;
+    font-size: 4rem; /* 数字较大 */
+    line-height: 100px;
+    position: absolute;
+    text-align: center;
+    color: #ff3366; /* 数字的亮色 */
+}
+
+#gameover {
+    display: block;
+    margin: 5px auto;
+    width: 480px; /* 略宽一些 */
+    height: 480px;
+    text-align: center;
+    top: 15px;
+    z-index: 9999;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.8); /* 轻背景用于覆盖 */
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+#gameover p {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 3rem;
+    color: var(--text-color);
+    margin: 25px auto;
+}
+
+#scor {
+    font-size: 2.5rem;
+    color: #ff3366; /* 与分数颜色匹配 */
+}
+
+#gameover span {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 3rem;
+    color: var(--text-color);
+    margin: 10px auto;
+}
+
+#restartgamebutton {
+    display: block;
+    margin: 90px auto;
+    width: 120px; /* 略大按钮 */
+    padding: 10px;
+    background-color: var(--button-bg-color);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 1.5rem; /* 更大字体以便阅读 */
+    color: var(--text-color);
+    border-radius: 20px;
+    text-decoration: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#restartgamebutton:hover {
+    background-color: var(--button-hover-bg-color);
+    transform: scale(1.1);
+}
