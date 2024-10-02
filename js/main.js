@@ -47,29 +47,106 @@ $(function () {
     });
 });
 
+//左边的移动函数
 function moveLeft() {
-    // 实现向左移动的逻辑
-    // 调用合并和更新的相关函数
-    updateBoardView(); // 更新视图
+    if (!canMove(board)) return;
+
+    for (let i = 0; i < 4; i++) {
+        for (let j = 1; j < 4; j++) {
+            if (board[i][j] !== 0) {
+                let targetIndex = j;
+                while (targetIndex > 0 && board[i][targetIndex - 1] === 0) {
+                    board[i][targetIndex - 1] = board[i][targetIndex];
+                    board[i][targetIndex] = 0;
+                    targetIndex--;
+                }
+                if (targetIndex > 0 && board[i][targetIndex - 1] === board[i][targetIndex] && !hasConflicted[i][targetIndex - 1]) {
+                    board[i][targetIndex - 1] += board[i][targetIndex];
+                    board[i][targetIndex] = 0;
+                    hasConflicted[i][targetIndex - 1] = true; // 标记合并过的方块
+                }
+            }
+        }
+    }
+    generateOneNumber();
+    updateBoardView();
 }
 
+//右边的移动函数
 function moveRight() {
-    // 实现向右移动的逻辑
-    // 调用合并和更新的相关函数
-    updateBoardView(); // 更新视图
+    if (!canMove(board)) return;
+
+    for (let i = 0; i < 4; i++) {
+        for (let j = 2; j >= 0; j--) {
+            if (board[i][j] !== 0) {
+                let targetIndex = j;
+                while (targetIndex < 3 && board[i][targetIndex + 1] === 0) {
+                    board[i][targetIndex + 1] = board[i][targetIndex];
+                    board[i][targetIndex] = 0;
+                    targetIndex++;
+                }
+                if (targetIndex < 3 && board[i][targetIndex + 1] === board[i][targetIndex] && !hasConflicted[i][targetIndex + 1]) {
+                    board[i][targetIndex + 1] += board[i][targetIndex];
+                    board[i][targetIndex] = 0;
+                    hasConflicted[i][targetIndex + 1] = true; // 标记合并过的方块
+                }
+            }
+        }
+    }
+    generateOneNumber();
+    updateBoardView();
 }
 
+//向上的移动函数
 function moveUp() {
-    // 实现向上移动的逻辑
-    // 调用合并和更新的相关函数
-    updateBoardView(); // 更新视图
+    if (!canMove(board)) return;
+
+    for (let j = 0; j < 4; j++) {
+        for (let i = 1; i < 4; i++) {
+            if (board[i][j] !== 0) {
+                let targetIndex = i;
+                while (targetIndex > 0 && board[targetIndex - 1][j] === 0) {
+                    board[targetIndex - 1][j] = board[targetIndex][j];
+                    board[targetIndex][j] = 0;
+                    targetIndex--;
+                }
+                if (targetIndex > 0 && board[targetIndex - 1][j] === board[targetIndex][j] && !hasConflicted[targetIndex - 1][j]) {
+                    board[targetIndex - 1][j] += board[targetIndex][j];
+                    board[targetIndex][j] = 0;
+                    hasConflicted[targetIndex - 1][j] = true; // 标记合并过的方块
+                }
+            }
+        }
+    }
+    generateOneNumber();
+    updateBoardView();
 }
 
+//向下的移动函数
 function moveDown() {
-    // 实现向下移动的逻辑
-    // 调用合并和更新的相关函数
-    updateBoardView(); // 更新视图
+    if (!canMove(board)) return;
+
+    for (let j = 0; j < 4; j++) {
+        for (let i = 2; i >= 0; i--) {
+            if (board[i][j] !== 0) {
+                let targetIndex = i;
+                while (targetIndex < 3 && board[targetIndex + 1][j] === 0) {
+                    board[targetIndex + 1][j] = board[targetIndex][j];
+                    board[targetIndex][j] = 0;
+                    targetIndex++;
+                }
+                if (targetIndex < 3 && board[targetIndex + 1][j] === board[targetIndex][j] && !hasConflicted[targetIndex + 1][j]) {
+                    board[targetIndex + 1][j] += board[targetIndex][j];
+                    board[targetIndex][j] = 0;
+                    hasConflicted[targetIndex + 1][j] = true; // 标记合并过的方块
+                }
+            }
+        }
+    }
+    generateOneNumber();
+    updateBoardView();
 }
+
 
 
 function newgame() {
