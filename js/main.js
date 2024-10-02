@@ -2,9 +2,75 @@ var board = new Array();
 var hasConflicted = new Array();
 var score = 0;
 
+// $(function () {
+//     newgame();
+// });
+
+let touchStartX = 0;
+let touchStartY = 0;
+
 $(function () {
     newgame();
+
+    // 添加触摸事件
+    $('#grid-container').on('touchstart', function(event) {
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+    });
+
+    $('#grid-container').on('touchmove', function(event) {
+        event.preventDefault(); // 防止页面滚动
+    });
+
+    $('#grid-container').on('touchend', function(event) {
+        const touchEndX = event.changedTouches[0].clientX;
+        const touchEndY = event.changedTouches[0].clientY;
+
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            // 水平移动
+            if (deltaX > 0) {
+                moveRight(); // 向右移动
+            } else {
+                moveLeft(); // 向左移动
+            }
+        } else {
+            // 垂直移动
+            if (deltaY > 0) {
+                moveDown(); // 向下移动
+            } else {
+                moveUp(); // 向上移动
+            }
+        }
+    });
 });
+
+function moveLeft() {
+    // 实现向左移动的逻辑
+    // 调用合并和更新的相关函数
+    updateBoardView(); // 更新视图
+}
+
+function moveRight() {
+    // 实现向右移动的逻辑
+    // 调用合并和更新的相关函数
+    updateBoardView(); // 更新视图
+}
+
+function moveUp() {
+    // 实现向上移动的逻辑
+    // 调用合并和更新的相关函数
+    updateBoardView(); // 更新视图
+}
+
+function moveDown() {
+    // 实现向下移动的逻辑
+    // 调用合并和更新的相关函数
+    updateBoardView(); // 更新视图
+}
+
 
 function newgame() {
 	if($('#gameover')){
