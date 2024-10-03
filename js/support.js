@@ -1,3 +1,37 @@
+let startX, startY, endX, endY;
+
+document.addEventListener('touchstart', function (event) {
+    startX = event.touches[0].clientX;
+    startY = event.touches[0].clientY;
+}, false);
+
+document.addEventListener('touchend', function (event) {
+    endX = event.changedTouches[0].clientX;
+    endY = event.changedTouches[0].clientY;
+    handleGesture();
+}, false);
+
+function handleGesture() {
+    const deltaX = endX - startX;
+    const deltaY = endY - startY;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // 水平滑动
+        if (deltaX > 0) {
+            canMoveRight(); // 调用向右移动的函数
+        } else {
+            canMoveUp(); // 调用向左移动的函数
+        }
+    } else {
+        // 垂直滑动
+        if (deltaY > 0) {
+            canMoveDown(); // 调用向下移动的函数
+        } else {
+            canMoveUp(); // 调用向上移动的函数
+        }
+    }
+}
+
 function getPosTop(i, j) {
     return 20 + i * 120;
 }
