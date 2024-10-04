@@ -1,53 +1,15 @@
-// let startX, startY, endX, endY;
-
-// document.addEventListener('touchstart', function (event) {
-//     startX = event.touches[0].clientX;
-//     startY = event.touches[0].clientY;
-// }, false);
-
-// document.addEventListener('touchend', function (event) {
-//     endX = event.changedTouches[0].clientX;
-//     endY = event.changedTouches[0].clientY;
-//     handleGesture();
-// }, false);
-
-// function handleGesture() {
-//     const deltaX = endX - startX;
-//     const deltaY = endY - startY;
-
-//     if (Math.abs(deltaX) > Math.abs(deltaY)) {
-//         // 水平滑动
-//         if (deltaX > 0) {
-//             moveRight(); // 调用向右移动的函数
-//         } else {
-//             moveUp(); // 调用向左移动的函数
-//         }
-//     } else {
-//         // 垂直滑动
-//         if (deltaY > 0) {
-//             moveDown(); // 调用向下移动的函数
-//         } else {
-//             moveUp(); // 调用向上移动的函数
-//         }
-//     }
-// }
-
-
-
-
-
-function getPosTop(i, j) {
-    return 20 + i * 120;
+function getPosTop(i, j) {  // 定义一个函数，用于计算单元格的顶部位置
+    return 20 + i * 120;    // 返回顶部位置，20为边距，i为行索引，120为单元格的高度
 }
 
-function getPosLeft(i, j) {
-    return 20 + j * 120;
+function getPosLeft(i, j) { // 定义一个函数，用于计算单元格的左侧位置
+    return 20 + j * 120;    // 返回左侧位置，20为边距，j为列索引，120为单元格的宽度
 }
 
-function getNumberBackgroundColor(number) {
-    switch (number) {
+function getNumberBackgroundColor(number) { // 定义一个函数，根据数字返回对应的背景颜色
+    switch (number) {   // 根据数字的不同选择颜色
         case 2:
-            return "#eee4da";
+            return "#eee4da";   // 返回对应的颜色
             break;
         case 4:
             return "#ede0c8";
@@ -95,35 +57,38 @@ function getNumberColor(number) {
     return "white";
 }
 
-function nospace(board) {
-    for (var i = 0; i < 4; i++) {
-        for (var j = 0; j < 4; j++) {
-            if (board[i][j] == 0) {
-                return false;
+function nospace(board) {   // 检查棋盘是否还有空位
+    for (var i = 0; i < 4; i++) {   // 遍历行
+        for (var j = 0; j < 4; j++) {   // 遍历列
+            if (board[i][j] == 0) {     // 如果当前单元格为空 0
+                return false;   // 返回false，表示还有空位
             }
         }
     }
-    return true;
+    return true;    // 如果没有空位，返回true
 }
 
-function nomove(board) {
+function nomove(board) {    // 检查棋盘上是否还有可移动的数字
+    // 检查四个方向是否可以移动
     if (canMoveDown(board) || canMoveLeft(board) || canMoveRight(board) || canMoveUp(board)) {
-        return false;
+        return false;   // 如果任何方向可以移动着返回false
     }
     return true;
 }
 
-function canMoveLeft(board) {
-    for (var i = 0; i < 4; i++) {
-        for (var j = 1; j < 4; j++) {
-            if (board[i][j] != 0) {
+// 判断该方向是否可以移动
+function canMoveLeft(board) {   // 检查棋盘是否可以向次方向移动
+    for (var i = 0; i < 4; i++) {   // 遍历每一行（i表示行的索引）
+        for (var j = 1; j < 4; j++) {   // 从第二列开始遍历（j表示列索引）
+            if (board[i][j] != 0) {     // 如果当前单元格不为空
+                // 检查左侧单元格是否为空或与当前单元格的值相同
                 if (board[i][j - 1] == 0 || board[i][j - 1] == board[i][j]) {
-                    return true;
+                    return true;    // 如果可以移动（左侧为空或可以合并），返回true
                 }
             }
         }
     }
-    return false;
+    return false;   // 如果没有找到可以移动的情况，返回false
 }
 
 function canMoveRight(board) {
@@ -165,20 +130,21 @@ function canMoveDown(board) {
     return false;
 }
 
-function noBlokCol(row, col1, col2, board) {
-    for (var i = col1 + 1; i < col2; i++) {
-        if (board[row][i] != 0) {
-            return false;
+// 判断块与块之间是否存在阻挡
+function noBlokCol(row, col1, col2, board) {    // 定义一个函数，检查在同一行中col1和col2之间的列是否有阻挡物
+    for (var i = col1 + 1; i < col2; i++) {     // 遍历col1+1到col2的列
+        if (board[row][i] != 0) {       // 如果有任何一个单元格不为空
+            return false;       // 返回false表示有阻挡物
         }
     }
-    return true;
+    return true;        // 如果所有单元格都为空，返回true，表示没有阻挡物
 }
 
-function noBlokRow(row1, row2, col, board) {
-    for (var i = row1 + 1; i < row2; i++) {
-        if (board[i][col] != 0) {
-            return false;
+function noBlokRow(row1, row2, col, board) {        // 定义一个函数，检查在同一列中row1和row2之间的行是否有阻挡物
+    for (var i = row1 + 1; i < row2; i++) {     // 遍历row1+1到row2的行
+        if (board[i][col] != 0) {       // 如果有任何一个单元格不为空
+            return false;       // 返回false，表示有阻挡物
         }
     }
-    return true;
+    return true;        // 如果所有单元格都为空，返回true，表示没有阻挡物
 }
