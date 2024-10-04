@@ -1,159 +1,16 @@
-var board = new Array();
-var hasConflicted = new Array();
-var score = 0;
+var board = new Array();    // 用于存储棋盘的状态
+var hasConflicted = new Array();    // 创建一个数组，用于记录已合并的格子
+var score = 0;  // 得分
 
 $(function () {
     newgame();
 });
 
-// let touchStartX = 0;
-// let touchStartY = 0;
-
-// $(function () {
-//     newgame();
-
-//     // 添加触摸事件
-//     $('#grid-container').on('touchstart', function(event) {
-//         touchStartX = event.touches[0].clientX;
-//         touchStartY = event.touches[0].clientY;
-//     });
-
-//     $('#grid-container').on('touchmove', function(event) {
-//         event.preventDefault(); // 防止页面滚动
-//     });
-
-//     $('#grid-container').on('touchend', function(event) {
-//         const touchEndX = event.changedTouches[0].clientX;
-//         const touchEndY = event.changedTouches[0].clientY;
-
-//         const deltaX = touchEndX - touchStartX;
-//         const deltaY = touchEndY - touchStartY;
-
-//         if (Math.abs(deltaX) > Math.abs(deltaY)) {
-//             // 水平移动
-//             if (deltaX > 0) {
-//                 moveRight(); // 向右移动
-//             } else {
-//                 moveLeft(); // 向左移动
-//             }
-//         } else {
-//             // 垂直移动
-//             if (deltaY > 0) {
-//                 moveDown(); // 向下移动
-//             } else {
-//                 moveUp(); // 向上移动
-//             }
-//         }
-//     });
-// });
-
-// //左边的移动函数
-// function moveLeft() {
-//     if (!canMove(board)) return;
-
-//     for (let i = 0; i < 4; i++) {
-//         for (let j = 1; j < 4; j++) {
-//             if (board[i][j] !== 0) {
-//                 let targetIndex = j;
-//                 while (targetIndex > 0 && board[i][targetIndex - 1] === 0) {
-//                     board[i][targetIndex - 1] = board[i][targetIndex];
-//                     board[i][targetIndex] = 0;
-//                     targetIndex--;
-//                 }
-//                 if (targetIndex > 0 && board[i][targetIndex - 1] === board[i][targetIndex] && !hasConflicted[i][targetIndex - 1]) {
-//                     board[i][targetIndex - 1] += board[i][targetIndex];
-//                     board[i][targetIndex] = 0;
-//                     hasConflicted[i][targetIndex - 1] = true; // 标记合并过的方块
-//                 }
-//             }
-//         }
-//     }
-//     generateOneNumber();
-//     updateBoardView();
-// }
-
-// //右边的移动函数
-// function moveRight() {
-//     if (!canMove(board)) return;
-
-//     for (let i = 0; i < 4; i++) {
-//         for (let j = 2; j >= 0; j--) {
-//             if (board[i][j] !== 0) {
-//                 let targetIndex = j;
-//                 while (targetIndex < 3 && board[i][targetIndex + 1] === 0) {
-//                     board[i][targetIndex + 1] = board[i][targetIndex];
-//                     board[i][targetIndex] = 0;
-//                     targetIndex++;
-//                 }
-//                 if (targetIndex < 3 && board[i][targetIndex + 1] === board[i][targetIndex] && !hasConflicted[i][targetIndex + 1]) {
-//                     board[i][targetIndex + 1] += board[i][targetIndex];
-//                     board[i][targetIndex] = 0;
-//                     hasConflicted[i][targetIndex + 1] = true; // 标记合并过的方块
-//                 }
-//             }
-//         }
-//     }
-//     generateOneNumber();
-//     updateBoardView();
-// }
-
-// //向上的移动函数
-// function moveUp() {
-//     if (!canMove(board)) return;
-
-//     for (let j = 0; j < 4; j++) {
-//         for (let i = 1; i < 4; i++) {
-//             if (board[i][j] !== 0) {
-//                 let targetIndex = i;
-//                 while (targetIndex > 0 && board[targetIndex - 1][j] === 0) {
-//                     board[targetIndex - 1][j] = board[targetIndex][j];
-//                     board[targetIndex][j] = 0;
-//                     targetIndex--;
-//                 }
-//                 if (targetIndex > 0 && board[targetIndex - 1][j] === board[targetIndex][j] && !hasConflicted[targetIndex - 1][j]) {
-//                     board[targetIndex - 1][j] += board[targetIndex][j];
-//                     board[targetIndex][j] = 0;
-//                     hasConflicted[targetIndex - 1][j] = true; // 标记合并过的方块
-//                 }
-//             }
-//         }
-//     }
-//     generateOneNumber();
-//     updateBoardView();
-// }
-
-// //向下的移动函数
-// function moveDown() {
-//     if (!canMove(board)) return;
-
-//     for (let j = 0; j < 4; j++) {
-//         for (let i = 2; i >= 0; i--) {
-//             if (board[i][j] !== 0) {
-//                 let targetIndex = i;
-//                 while (targetIndex < 3 && board[targetIndex + 1][j] === 0) {
-//                     board[targetIndex + 1][j] = board[targetIndex][j];
-//                     board[targetIndex][j] = 0;
-//                     targetIndex++;
-//                 }
-//                 if (targetIndex < 3 && board[targetIndex + 1][j] === board[targetIndex][j] && !hasConflicted[targetIndex + 1][j]) {
-//                     board[targetIndex + 1][j] += board[targetIndex][j];
-//                     board[targetIndex][j] = 0;
-//                     hasConflicted[targetIndex + 1][j] = true; // 标记合并过的方块
-//                 }
-//             }
-//         }
-//     }
-//     generateOneNumber();
-//     updateBoardView();
-// }
-
-
-
 function newgame() {
-	if($('#gameover')){
-		$('#gameover p').remove();
-	    $('#gameover span').remove();
-	    $('#gameover a').remove();
+	if($('#gameover')){ // 检查游戏结束是否存在
+		$('#gameover p').remove();  // 移除游戏结束提示中的段落
+	    $('#gameover span').remove();   // 移除得分
+	    $('#gameover a').remove();  // 移除重启
 	    $('#gameover').remove();
 	};
     //初始化棋盘格
@@ -171,7 +28,7 @@ function restartgame() {
     newgame();
 }
 
-function init() {
+function init() {   // 初始化棋盘格的状态
     for (var i = 0; i < 4; i++) {
         for (var j = 0; j < 4; j++) {
             var gridCell = $("#grid-cell-" + i + "-" + j);
@@ -194,13 +51,14 @@ function init() {
     $('#score').text(0);
 }
 
-function updateBoardView() {
+function updateBoardView() {    // 更新棋盘的视觉表现
     $(".number-cell").remove();
     for (var i = 0; i < 4; i++) {
         for (var j = 0; j < 4; j++) {
             $("#grid-container").append("<div class='number-cell' id='number-cell-" + i + "-" + j + "'></div>");
             var numberCell = $("#number-cell-" + i + "-" + j);
-
+            
+            // 设置棋盘
             if (board[i][j] == 0) {
                 numberCell.css("width", "0px");
                 numberCell.css("height", "0px");
@@ -224,7 +82,7 @@ function updateBoardView() {
     $(".number-cell").css("font-size", "60px");
 }
 
-function generateOneNumber() {
+function generateOneNumber() {  // 生成一个新的数字 
     if (nospace(board)) {
         return false;
     }
