@@ -74,7 +74,6 @@ function handleGesture() {
     }
 }
 
-
 function moveLeft() {
     if (!canMoveLeft(board)) {
         return false;
