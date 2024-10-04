@@ -29,6 +29,52 @@ $(document).keydown(function (event) {
     }
 });
 
+// 手势事件处理
+let startX, startY, endX, endY;
+
+document.addEventListener('touchstart', function (event) {
+    startX = event.touches[0].clientX;
+    startY = event.touches[0].clientY;
+}, false);
+
+document.addEventListener('touchend', function (event) {
+    endX = event.changedTouches[0].clientX;
+    endY = event.changedTouches[0].clientY;
+    handleGesture(); // 处理手势
+}, false);
+
+function handleGesture() {
+    const diffX = endX - startX;
+    const diffY = endY - startY;
+
+    if (Math.abs(diffX) > Math.abs(diffY)) { // 判断是横向滑动
+        if (diffX < -30) { // 向左滑动
+            if (moveLeft()) {
+                setTimeout("generateOneNumber()", 210);
+                setTimeout("isgameover()", 300);
+            }
+        } else if (diffX > 30) { // 向右滑动
+            if (moveRight()) {
+                setTimeout("generateOneNumber()", 210);
+                setTimeout("isgameover()", 300);
+            }
+        }
+    } else { // 判断是纵向滑动
+        if (diffY < -30) { // 向上滑动
+            if (moveUp()) {
+                setTimeout("generateOneNumber()", 210);
+                setTimeout("isgameover()", 300);
+            }
+        } else if (diffY > 30) { // 向下滑动
+            if (moveDown()) {
+                setTimeout("generateOneNumber()", 210);
+                setTimeout("isgameover()", 300);
+            }
+        }
+    }
+}
+
+
 function moveLeft() {
     if (!canMoveLeft(board)) {
         return false;
